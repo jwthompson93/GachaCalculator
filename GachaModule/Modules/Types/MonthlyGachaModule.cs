@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebAppMvc.Modules;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using WebAppMvc.Modules;
 
-namespace GachaModule.Modules
+namespace GachaModule.Modules.Types
 {
     public class MonthlyGachaModule : IGachaModule
     {
@@ -15,7 +9,7 @@ namespace GachaModule.Modules
         private int _monthlyCurrency;
         private int _monthlyTicket;
 
-        public MonthlyGachaModule(string label, DateTime endDate, int monthlyCurrency, int monthlyTicket) : base(label)
+        public MonthlyGachaModule(string label, int monthlyCurrency, int monthlyTicket, DateTime endDate) : base(label)
         {
             _startDate = new DateTime();
             _endDate = endDate;
@@ -23,12 +17,10 @@ namespace GachaModule.Modules
             _monthlyTicket = monthlyTicket;
         }
 
-        public MonthlyGachaModule(string label, DateTime startDate, DateTime endDate, int dailyCurrency, int dailyTicket) : base(label)
+        public MonthlyGachaModule(string label, int monthlyCurrency, int monthlyTicket, DateTime endDate, DateTime startDate) : 
+            this(label, monthlyCurrency, monthlyTicket, endDate)
         {
             _startDate = startDate;
-            _endDate = endDate;
-            _monthlyCurrency = dailyCurrency;
-            _monthlyTicket = dailyTicket;
         }
         public override int GetCurrency()
         {
@@ -42,7 +34,7 @@ namespace GachaModule.Modules
 
         private int CalculateMonthDifference()
         {
-            return ((_endDate.Year - _startDate.Year) * 12) + _endDate.Month - _startDate.Month;
+            return (_endDate.Year - _startDate.Year) * 12 + _endDate.Month - _startDate.Month;
         }
     }
 }

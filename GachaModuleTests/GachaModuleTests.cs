@@ -1,4 +1,4 @@
-using GachaModule.Modules;
+using GachaModule.Modules.Types;
 using Xunit;
 
 namespace GachaModuleTests
@@ -21,27 +21,29 @@ namespace GachaModuleTests
 
         [Theory]
         [InlineData(256, 2, 256, 2)]
-        public void TestCurrentGachaModule(int currency, int tickets, int expectedCurrency, int expectedTickets)
+        public void TestGeneralGachaModule(int currency, int tickets, int expectedCurrency, int expectedTickets)
         {
-            var currentGachaModule = new CurrentGachaModule(currency, tickets);
+            var generalGachaModule = new GeneralGachaModule(currency, tickets);
 
-            Assert.Equal(currentGachaModule.GetCurrency(), expectedCurrency);
-            Assert.Equal(currentGachaModule.GetTickets(), expectedTickets);
+            Assert.Equal(generalGachaModule.GetCurrency(), expectedCurrency);
+            Assert.Equal(generalGachaModule.GetTickets(), expectedTickets);
         }
 
         [Theory, MemberData(nameof(DailyGachaModuleData))]
-        public void TestDailyGachaModule(DateTime startDate, DateTime endDate, int dailyCurrency, int dailyTickets, int expectedCurrency, int expectedTickets)
+        public void TestDailyGachaModule(DateTime startDate, DateTime endDate, int dailyCurrency, int dailyTickets, 
+            int expectedCurrency, int expectedTickets)
         {
-            var dailyGachaModule = new DailyGachaModule("Daily Commissions", startDate, endDate, dailyCurrency, dailyTickets);
+            var dailyGachaModule = new DailyGachaModule("Daily Commissions", dailyCurrency, dailyTickets, endDate, startDate);
 
             Assert.Equal(dailyGachaModule.GetCurrency(), expectedCurrency);
             Assert.Equal(dailyGachaModule.GetTickets(), expectedTickets);
         }
 
         [Theory, MemberData(nameof(MonthlyGachaModuleData))]
-        public void TestMonthlyGachaModule(DateTime startDate, DateTime endDate, int dailyCurrency, int dailyTickets, int expectedCurrency, int expectedTickets)
+        public void TestMonthlyGachaModule(DateTime startDate, DateTime endDate, int dailyCurrency, int dailyTickets, 
+            int expectedCurrency, int expectedTickets)
         {
-            var monthlyGachaModule = new MonthlyGachaModule("Paimon's Bargains", startDate, endDate, dailyCurrency, dailyTickets);
+            var monthlyGachaModule = new MonthlyGachaModule("Paimon's Bargains", dailyCurrency, dailyTickets, endDate, startDate);
 
             Assert.Equal(monthlyGachaModule.GetCurrency(), expectedCurrency);
             Assert.Equal(monthlyGachaModule.GetTickets(), expectedTickets);

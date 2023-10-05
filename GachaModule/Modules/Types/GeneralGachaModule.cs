@@ -5,14 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using WebAppMvc.Modules;
 
-namespace GachaModule.Modules
+namespace GachaModule.Modules.Types
 {
-    public class CurrentGachaModule : IGachaModule
+    public class GeneralGachaModule : IGachaModule
     {
         private int _currency = 0;
         private int _ticket = 0;
 
-        public CurrentGachaModule(int currency, int ticket) : base("Current") {
+        public GeneralGachaModule(int currency, int ticket) : base("Current")
+        {
+            _currency = currency;
+            _ticket = ticket;
+        }
+
+        public GeneralGachaModule(string label, int currency, int ticket) : base(label)
+        {
             _currency = currency;
             _ticket = ticket;
         }

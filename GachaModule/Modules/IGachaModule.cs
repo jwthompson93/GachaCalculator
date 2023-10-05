@@ -9,6 +9,8 @@
             _label = label;
         }
 
+        public string GetLabel() { return _label; }
+
         // Primogems, Stellar Jades etc
         public abstract int GetCurrency();
 
